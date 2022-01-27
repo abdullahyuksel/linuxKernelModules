@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/merhaba/merhaba.ko := ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/pi/linux/merhaba/merhaba.ko /home/pi/linux/merhaba/merhaba.o /home/pi/linux/merhaba/merhaba.mod.o;  true
