@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/degerAtama/degerAtama.ko := ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/pi/linux/degerAtama/degerAtama.ko /home/pi/linux/degerAtama/degerAtama.o /home/pi/linux/degerAtama/degerAtama.mod.o;  true

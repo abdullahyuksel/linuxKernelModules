@@ -3,7 +3,7 @@
 
 static int deger=1;
 
-module param(deger, int, S_IRUGO);
+module_param(deger, int, S_IRUGO);
 
 static int __init ModuleInit(void)
 {

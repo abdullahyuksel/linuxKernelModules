@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/degerAtama/Module.symvers := sed 's/ko$$/o/' /home/pi/linux/degerAtama/modules.order | scripts/mod/modpost -m -a   -o /home/pi/linux/degerAtama/Module.symvers -e -i Module.symvers   -T -
