@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/cihazNumara/cihazNumara.ko := ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/pi/linux/cihazNumara/cihazNumara.ko /home/pi/linux/cihazNumara/cihazNumara.o /home/pi/linux/cihazNumara/cihazNumara.mod.o;  true
