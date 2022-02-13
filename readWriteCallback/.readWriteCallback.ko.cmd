@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/readWriteCallback/readWriteCallback.ko := ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/pi/linux/readWriteCallback/readWriteCallback.ko /home/pi/linux/readWriteCallback/readWriteCallback.o /home/pi/linux/readWriteCallback/readWriteCallback.mod.o;  true

@@ -4,38 +4,65 @@
 #include <linux/cdev.h>
 #include <linux/uaccess.h>
 
-#define DRIVER_NAME "device-abdullahYuksel"
-#define DRIVER_CLASS "class-abdullahYuksel"
-
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("abdullahYuksel");
-MODULE_DESCRIPTION("Cihaz Kayıt Numarasi");
+MODULE_DESCRIPTION("readWriteCallback");
 
 static dev_t my_device_number;
 static struct class *my_class;
 static struct cdev my_device;
 
-static int driver_open(struct inode *defice_file, struct file *instance)
+static char buffer[255];
+static int buffer_pointer = 0;
+
+#define DRIVER_NAME "device-abdullahYuksel"
+#define DRIVER_CLASS "class-abdullahYuksel"
+
+static ssize_t driver_read(struct file *File, char *user_buffer, size_t count, loff_t *offs)
 {
-	printk("char_dev1 - open was called!\n");
+	int to_copy, not_copy, returnVal;
+	printk("Read Callback!\n");
+	to_copy = min(count, buffer_pointer);
+	not_copy = copy_to_user(user_buffer, buffer, to_copy);
+	returnVal = to_copy - not_copy;
+	printk("Driver read: %d \n", returnVal);
+	return returnVal;
+}
+
+static ssize_t driver_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs)
+{
+	int to_copy, not_copy, returnVal;
+	printk("Write Callback!\n");
+	to_copy = min(count, sizeof(buffer));
+	not_copy = copy_from_user(buffer, user_buffer, to_copy);
+	buffer_pointer = to_copy;
+	returnVal = to_copy - not_copy;
+        printk("Driver write %d values %s \n", returnVal, (char*) buffer);
+	return returnVal;
+}
+
+static int driver_open(struct inode *device_file, struct file *instance)
+{
+	printk("readWriteCallback - open was called!\n");
 	return 0;
 }
 
 static int driver_close(struct inode *device_file, struct file *instance)
 {
-	printk("char_dev1 - close was called!\n");
+	printk("readWriteCallback - close was called!\n");
 	return 0;
 }
 
 static struct file_operations fops = {
-	.owner = THIS_MODULE,
-	.open = driver_open,
-	.release = driver_close
+	.owner		= THIS_MODULE,
+	.open 		= driver_open,
+	.read 		= driver_read,
+	.write		= driver_write,
+	.release 	= driver_close
 };
 
 static int __init ModuleInit(void)
 {
-	int retVal;
 	printk("init kernel\n");
 
 	if(alloc_chrdev_region(&my_device_number, 0, 1, DRIVER_NAME)<0 )

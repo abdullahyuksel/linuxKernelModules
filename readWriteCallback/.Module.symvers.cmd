@@ -1,0 +1,1 @@
+cmd_/home/pi/linux/readWriteCallback/Module.symvers := sed 's/ko$$/o/' /home/pi/linux/readWriteCallback/modules.order | scripts/mod/modpost -m -a   -o /home/pi/linux/readWriteCallback/Module.symvers -e -i Module.symvers   -T -
